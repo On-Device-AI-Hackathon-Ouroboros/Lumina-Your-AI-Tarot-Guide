@@ -1,9 +1,13 @@
 """Sample answers from LLMs on QA task."""
 import logging
 from utils import utils
-# from flask import Flask, request, jsonify
+import atexit
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 
-# app = Flask(__name__)
+
+app = Flask(__name__)
+CORS(app)
 
 # set up
 utils.setup_logger()
@@ -17,22 +21,28 @@ if unknown:
 # Initialize model.
 model = utils.init_model(args)
 
-# @app.route('/chat', methods=['POST'])
-def chat(args):
-    # user_input = request.json.get('message')
-    local_prompt = "As Tarot Card expert, can you do a three-card reading for my past, present, and future?"
+@app.route('/chat', methods=['POST'])
+def chat():
+    try:
+        user_input = request.json.get('message')
+        if not user_input:
+            return jsonify({'error': 'No message provided'}), 400
+        local_prompt = "As Tarot Card expert, can you do a three-card reading for my past, present, and future?"
 
-    predicted_answer, token_log_likelihoods, embedding = model.predict(
-        local_prompt, args.temperature)
-    embedding = embedding.cpu() if embedding is not None else None
+        predicted_answer, token_log_likelihoods, embedding = model.predict(
+            local_prompt, args.temperature)
+        embedding = embedding.cpu() if embedding is not None else None
 
-    logging.info(f"predicted answer is {predicted_answer}")
-    print(predicted_answer)
-    # return jsonify({'response': predicted_answer})
-    return 0
+        logging.info(f"predicted answer is {predicted_answer}")
+    except Exception as e:
+        logging.error(f"Error during prediction: {e}")
+        return jsonify({'error': str(e)}), 500
+    return jsonify({'response': predicted_answer}), 200
+
+def cleanup_model():
+    # del model
+    logging.info("Model deleted successfully")
 
 if __name__ == '__main__':
-    # app.run(host='0.0.0.0', port=5000)
-    chat(args)
-
-del model
+    atexit.register(cleanup_model)
+    app.run(host='127.0.0.1', port=5000)
