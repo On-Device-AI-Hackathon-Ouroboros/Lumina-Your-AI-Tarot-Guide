@@ -1,0 +1,158 @@
+/* Remove the problematic Google Fonts import */
+/* @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Great+Vibes&family=Parisienne&display=swap'); */
+
+/* Add fallback for Parisienne font */
+@font-face {
+  font-family: "Parisienne";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Parisienne"), url(https://fonts.gstatic.com/s/parisienne/v13/E21i_d3kivvAkxhLEVZpQyZwD9Ku.woff2)
+    format("woff2");
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-parisienne: "Dancing Script", cursive;
+  --background: 300 20% 98%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 262.1 83.3% 57.8%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 340 65% 88%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 262.1 83.3% 57.8%;
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 263.4 70% 50.4%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+}
+
+body {
+  @apply bg-background text-foreground;
+}
+
+.dreamy-bg {
+  @apply bg-dreamy-gradient bg-cover bg-center;
+  position: relative;
+  overflow: hidden;
+}
+
+.dreamy-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='1' fill='%23ffffff' fill-opacity='0.3'/%3E%3C/svg%3E");
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.star {
+  @apply absolute rounded-full bg-white;
+  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+}
+
+.butterfly {
+  @apply absolute w-6 h-6 text-nova-purple animate-float;
+}
+
+.flower {
+  @apply absolute w-8 h-8;
+}
+
+.crystal-ball {
+  @apply relative w-40 h-40 rounded-full bg-gradient-to-br from-white/30 to-white/10 backdrop-blur-sm;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+.crystal-ball::before {
+  content: "";
+  @apply absolute top-1/4 left-1/4 w-1/2 h-1/2 rounded-full bg-white/20;
+  filter: blur(5px);
+}
+
+.tarot-card {
+  @apply relative w-32 h-48 rounded-lg bg-gradient-to-b from-nova-purple/20 to-nova-blue/20 backdrop-blur-sm border border-white/30 shadow-lg transition-all duration-500;
+}
+
+.tarot-card:hover {
+  @apply transform -translate-y-2 shadow-xl;
+}
+
+.magical-button {
+  @apply relative overflow-hidden px-6 py-3 rounded-full bg-gradient-to-r from-nova-purple to-nova-blue text-white font-bold shadow-md transition-all duration-300;
+}
+
+.magical-button:hover {
+  @apply shadow-lg transform -translate-y-1;
+}
+
+.magical-button::before {
+  content: "";
+  @apply absolute inset-0 bg-white/20 opacity-0 transition-opacity duration-300;
+}
+
+.magical-button:hover::before {
+  @apply opacity-100;
+}
+
+.magical-input {
+  @apply bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg px-4 py-2 text-foreground placeholder:text-foreground/50 focus:outline-none focus:ring-2 focus:ring-nova-purple/50 transition-all duration-300;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* .rotate-y-180 {
+  transform: rotateY(180deg);
+} */
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
