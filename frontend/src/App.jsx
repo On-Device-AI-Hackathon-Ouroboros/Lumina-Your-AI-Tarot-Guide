@@ -4,6 +4,7 @@ import TarotCard from './components/TarotCard';
 import TarotDetail from './components/TarotDetail';
 import FlashCards from './pages/flashCards';
 import DrawCards from './pages/drawCards';
+import Chat from './pages/chat';
 
 function App() {
   
@@ -553,7 +554,8 @@ function App() {
 
         <Route path="/:id" element={<TarotDetailWrapper tarotCards={tarotCards}/>} />
         <Route path="/flashcards" element={<FlashCards tarotCards={tarotCards}/>} />
-        <Route path="/drawcards" element={<DrawCards tarotCards={tarotCards}/>} />
+        <Route path="/drawcards" element={<DrawCards tarotCards={tarotCards} navigate={navigate}/>} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </div>
   );

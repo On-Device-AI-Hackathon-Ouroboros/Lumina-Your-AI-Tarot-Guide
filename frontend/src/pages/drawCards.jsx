@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import backImage from '../images/back.png';
 
-const DrawCards = ({ tarotCards, maxCards=3 }) => {
+const DrawCards = ({ tarotCards, navigate, maxCards=3 }) => {
     const [flippedCards, setFlippedCards] = useState({});
     const [shuffledCards, setShuffledCards] = useState([...tarotCards]);
     // const [canShuffle, setCanShuffle] = useState(true);
@@ -10,15 +10,15 @@ const DrawCards = ({ tarotCards, maxCards=3 }) => {
     const chooseCard = (id) => {
         // Once users choose a card, cannot reverse the card. Already flipped, do nothing
         // setCanShuffle(false);
-        if (flippedCards[id]) return; 
+        if (flippedCards[id]) return;
 
         if (Object.keys(flippedCards).length < maxCards) {
             setFlippedCards((prev) => ({ ...prev, [id]: true }));
         }
         // if reach the maxCards, can navigate to AI chat page
-        if (Object.keys(flippedCards).length === maxCards) {
+        if (Object.keys(flippedCards).length+1 == maxCards) {
             // navigate to AI chat page
-            // navigate(`/chat`)
+            navigate(`/chat`)
         }
     };
 
