@@ -4,8 +4,6 @@ import TarotCard from './components/TarotCard';
 import TarotDetail from './components/TarotDetail';
 import FlashCards from './pages/flashCards';
 import DrawCards from './pages/drawCards';
-import Welcome from './components/Welcome';
-import UserInput from './components/UserInput';
 
 function App() {
   
@@ -534,68 +532,31 @@ function App() {
     return <TarotDetail card={card} />;
   };
 
-//   return (
-    
-    
-//     <div className="app">
-//       <header className="app-header">
-//         <h1>Tarot Insights Board</h1>
-//         <button className="button" onClick={() => {navigate(`/`)}}>Home</button>
-//         <button className="button" onClick={() => {navigate(`/flashcards`)}}>Flashcards</button>
-//         <button className="button" onClick={() => {navigate(`/drawcards`)}}>Drawcards</button>
-//       </header>
+  return (
+    <div className="app">
+      <header className="app-header">
+        <h1>Tarot Insights Board</h1>
+        <button className="button" onClick={() => {navigate(`/`)}}>Home</button>
+        <button className="button" onClick={() => {navigate(`/flashcards`)}}>Flashcards</button>
+        <button className="button" onClick={() => {navigate(`/drawcards`)}}>Drawcards</button>
+      </header>
 
-//       <Routes>
-//         {/* Main route showing tarot cards */}
-//         <Route path="/" element={
-//           <div className="tarot-card-container">
-//             {tarotCards.map((card) => (
-//               <TarotCard key={card.id} card={card} />
-//             ))}
-//           </div>
-//         } />
-
-//         <Route path="/:id" element={<TarotDetailWrapper tarotCards={tarotCards}/>} />
-//         <Route path="/flashcards" element={<FlashCards tarotCards={tarotCards}/>} />
-//         <Route path="/drawcards" element={<DrawCards tarotCards={tarotCards}/>} />
-//       </Routes>
-//     </div>
-//   );
-// }
-
-return (
-  <div className="app">
-    <header className="app-header">
-      <h1>Tarot Insights Board</h1>
-      <button className="button" onClick={() => navigate('/')}>Home</button>
-      <button className="button" onClick={() => navigate('/flashcards')}>Flashcards</button>
-      <button className="button" onClick={() => navigate('/drawcards')}>Drawcards</button>
-    </header>
-
-    <Routes>
-      <Route
-        path="/cards"
-        element={
+      <Routes>
+        {/* Main route showing tarot cards */}
+        <Route path="/" element={
           <div className="tarot-card-container">
             {tarotCards.map((card) => (
               <TarotCard key={card.id} card={card} />
             ))}
           </div>
-        }
-      />
+        } />
 
-      <Route
-        path="/cards/:id"
-        element={<TarotDetailWrapper tarotCards={tarotCards} />}
-      />
-
-      <Route path="/flashcards" element={<FlashCards tarotCards={tarotCards} />} />
-      <Route path="/drawcards" element={<DrawCards tarotCards={tarotCards} />} />
-
-      <Route path="/" element={<Welcome />} />
-    </Routes>
-  </div>
-);
+        <Route path="/:id" element={<TarotDetailWrapper tarotCards={tarotCards}/>} />
+        <Route path="/flashcards" element={<FlashCards tarotCards={tarotCards}/>} />
+        <Route path="/drawcards" element={<DrawCards tarotCards={tarotCards}/>} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;

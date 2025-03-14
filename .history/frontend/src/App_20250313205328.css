@@ -32,7 +32,6 @@
 
 /* 原有的 .app-header { ... } 可以直接删掉或在下面覆盖 */
 
-
 .app-header {
   /* 去掉实色背景，改为透明 */
   background-color: transparent;  
@@ -44,7 +43,7 @@
   padding: 1rem 2rem;
 
   /* 深紫色文字 + 使用Google字体 */
-  color: #1a032a;
+  color: #4B0082;
   font-family: 'Playfair Display', serif; /* 或你想用 Playwrite HU */
 
   /* 如果不想要任何box-shadow就设置为 none */

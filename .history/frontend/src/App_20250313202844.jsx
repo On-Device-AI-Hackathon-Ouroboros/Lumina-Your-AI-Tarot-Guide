@@ -573,6 +573,7 @@ return (
     </header>
 
     <Routes>
+      {/* 原先 "/" 路由，直接显示卡片；我们要将它改为 "/cards" */}
       <Route
         path="/cards"
         element={
@@ -584,14 +585,17 @@ return (
         }
       />
 
+      {/* 详情页面也改为 /cards/:id */}
       <Route
         path="/cards/:id"
         element={<TarotDetailWrapper tarotCards={tarotCards} />}
       />
 
+      {/* 下面两个功能路由不变 */}
       <Route path="/flashcards" element={<FlashCards tarotCards={tarotCards} />} />
       <Route path="/drawcards" element={<DrawCards tarotCards={tarotCards} />} />
 
+      {/* Welcome 页面放在根路径 "/" */}
       <Route path="/" element={<Welcome />} />
     </Routes>
   </div>
