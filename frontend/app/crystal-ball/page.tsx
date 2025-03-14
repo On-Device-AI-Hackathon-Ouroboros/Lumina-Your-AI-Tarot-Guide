@@ -36,8 +36,38 @@ export default function CrystalBallPage() {
     }, 1500)
   }
 
+  const handleGenerateQuote = async () => {
+    setIsGenerating(true);
+    const message = "Act as a crystal ball that reveals the future. Your task is to generate a quote \
+    for users. \n \
+    Examples of quotes are: 'Embrace the unknown, for magic blossoms in unexpected places.', \
+    'The stars whisper secrets to those who listen with their heart.',\
+    'Your path is illuminated by the light you carry within.',\
+    'What seems like an ending is often just a new beginning in disguise.',\
+    'The universe conspires to help those who follow their true purpose.',\
+    'Trust the timing of your life; some flowers bloom later than others.',\
+    'Your thoughts are powerful magic; use them wisely.',\
+    'Sometimes the longest journey is the distance from your head to your heart.',\
+    'The answers you seek are already within you, waiting to be discovered.',\
+    'When you dance with the universe, miracles become your rhythm.'"
+    try {
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
+      })
+      const data = await res.json();
+      setQuote(data.response);
+      setIsGenerating(false);
+    } catch (error) {
+      console.error('Error Generating Quote:', error);
+    }
+  }
+
   useEffect(() => {
-    generateQuote()
+    handleGenerateQuote()
   }, [])
 
   return (
@@ -113,7 +143,7 @@ export default function CrystalBallPage() {
         </div>
 
         <div className="flex gap-4">
-          <MagicalButton onClick={generateQuote} disabled={isGenerating}>
+          <MagicalButton onClick={handleGenerateQuote} disabled={isGenerating}>
             {isGenerating ? "Gazing..." : "New Message"}
           </MagicalButton>
 
