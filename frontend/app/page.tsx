@@ -41,7 +41,7 @@ export default function IntroductionPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="max-w-md mb-12 text-lg font-greatVibes text-2xl"
+          className="max-w-md mb-12 text-lg font-almendra text-2xl"
         >
           Welcome, dear wanderer of the cosmos. I am Nova, your magical guide to the realms beyond. Dare to explore the
           mysteries of fate?

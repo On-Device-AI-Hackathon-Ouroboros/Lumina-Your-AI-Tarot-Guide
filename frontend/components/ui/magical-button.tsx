@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { motion } from "framer-motion"
 import type { ButtonHTMLAttributes } from "react"
 import { cn } from "@/lib/utils"
@@ -16,7 +15,7 @@ export function MagicalButton({ children, className, variant = "default", ...pro
     <motion.button
       className={cn(
         "magical-button",
-        variant === "outline" && "bg-transparent border-2 border-nova-purple text-nova-purple hover:bg-nova-purple/10",
+        variant === "outline" && "bg-transparent text-nova-purple hover:bg-nova-purple/10",
         className,
       )}
       whileHover={{ scale: 1.05 }}
@@ -25,7 +24,7 @@ export function MagicalButton({ children, className, variant = "default", ...pro
     >
       {children}
       <motion.div
-        className="absolute inset-0 bg-white/20 rounded-full"
+        className="absolute inset-0 bg-white/20 rounded-full" 
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 0.5, 0] }}
         transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}

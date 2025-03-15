@@ -56,7 +56,7 @@ export function TarotQuestionCategory({ onSelectCategory }: TarotQuestionCategor
     <motion.div className="w-full" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <h2 className="mb-6 text-2xl font-bold text-center font-cinzel">What would you like to explore?</h2>
 
-      <p className="mb-8 text-center font-parisienne text-xl">
+      <p className="mb-8 text-center font-fell text-xl">
         Choose a category for your tarot reading, and Nova will reveal the cards that illuminate your path.
       </p>
 

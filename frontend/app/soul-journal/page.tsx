@@ -89,7 +89,7 @@ export default function SoulJournalPage() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="mb-8 text-3xl font-bold text-center font-cinzel text-nova-purple"
+          className="mb-8 text-3xl font-bold text-center font-fell text-nova-purple"
         >
           Soul Journal
         </motion.h1>
@@ -117,7 +117,7 @@ export default function SoulJournalPage() {
 
                 <h2 className="mb-4 text-2xl font-bold text-center font-cinzel">Welcome to Your Soul Journal</h2>
 
-                <p className="mb-6 text-center font-parisienne text-xl">
+                <p className="mb-6 text-center font-almendra text-xl">
                   This is a sacred space for your thoughts, feelings, and reflections. As you write, Nova will offer
                   gentle guidance to help you explore your inner world more deeply.
                 </p>

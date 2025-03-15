@@ -102,8 +102,11 @@ const config: Config = {
       },
       fontFamily: {
         cinzel: ["var(--font-cinzel)", "serif"],
+        cinzelDecorative: ["var(--font-cinzel-decorative)", "serif"],
         greatVibes: ["var(--font-great-vibes)", "cursive"],
         parisienne: ["Parisienne", "cursive"],
+        almendra: ["var(--font-almendra)", "serif"],
+        fell: ["var(--font-fell)", "serif"],
       },
       backgroundImage: {
         "dreamy-gradient": "linear-gradient(to right, #f8c4d9, #a0d2eb, #d8c4f8)",

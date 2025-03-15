@@ -82,7 +82,7 @@ export function TarotCard({ card, isSelected, isRevealed, onClick, index = 0, po
         <div className="absolute w-full h-full backface-hidden rotate-y-180 rounded-lg bg-white/90 backdrop-blur-sm border-2 border-nova-purple/50 shadow-lg overflow-hidden">
           {card.image ? (
             <div className="h-full flex flex-col">
-              <h3 className="text-sm font-bold font-cinzel text-nova-purple text-center p-1 border-b border-nova-purple/30">
+              <h3 className="text-sm font-bold font-almendra text-nova-purple text-center p-1 border-b border-nova-purple/30">
                 {card.name}
               </h3>
               <div className="flex-1 relative">
@@ -97,7 +97,7 @@ export function TarotCard({ card, isSelected, isRevealed, onClick, index = 0, po
             </div>
           ) : (
             <div className="p-3 h-full flex flex-col">
-              <h3 className="text-sm font-bold font-cinzel text-nova-purple text-center mb-2 border-b border-nova-purple/30 pb-1">
+              <h3 className="text-sm font-bold font-almendra text-nova-purple text-center mb-2 border-b border-nova-purple/30 pb-1">
                 {card.name}
               </h3>
               <div className="flex-1 flex items-center justify-center">

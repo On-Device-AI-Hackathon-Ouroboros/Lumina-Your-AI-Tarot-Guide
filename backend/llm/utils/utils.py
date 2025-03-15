@@ -9,7 +9,7 @@ def get_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--random_seed', type=int, default=10)
     parser.add_argument(
-        "--model_name", type=str, default="Llama-2-7b-chat", help="Model name",
+        "--model_name", type=str, default="google/gemma-3-1b-it", help="Model name",
     )
     parser.add_argument(
         "--model_max_new_tokens", type=int, default=200,
@@ -39,7 +39,7 @@ def setup_logger():
 
 def init_model(args):
     mn = args.model_name
-    if 'llama' in mn.lower() or 'falcon' in mn or 'mistral' in mn.lower():
+    if 'llama' in mn.lower() or 'falcon' in mn or 'mistral' in mn.lower() or 'gemma' in mn.lower():
         model = HuggingfaceModel(
             mn,
             max_new_tokens=args.model_max_new_tokens)
