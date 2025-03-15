@@ -1,0 +1,3 @@
+api_key: "ZSX04G3-9H34XW5-JB631QJ-NQBN2Q0"
+model_server_base_url: "http://localhost:3001/api/v1"
+workspace_slug: "my_chatbot_workspace"
