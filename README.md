@@ -1,6 +1,19 @@
 # Nova Your AI Tarot Guide
 This web app: **placeholder**
 
+## Installation Instruction
+```
+git clone https://github.com/On-Device-AI-Hackathon-Ouroboros/Nova-Your-AI-Tarot-Guide.git  
+cd Nova-Your Tarot Guide  
+cd frontend  
+npm install  
+npm run dev  
+cd backend  
+conda-env update -f environment.yaml  
+conda activate llm  
+python model.py
+```
+
 ## Required Features
 
 The following **required** functionality is completed:

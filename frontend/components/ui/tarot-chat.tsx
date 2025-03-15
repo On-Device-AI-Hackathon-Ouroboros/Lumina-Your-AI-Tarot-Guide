@@ -31,7 +31,7 @@ export function TarotChat({ tarotReading, onClose }: TarotChatProps) {
   const [isTyping, setIsTyping] = useState(false)
   const maxExchanges = 3
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!inputValue.trim() || exchangeCount >= maxExchanges) return
 
     // Add user message
@@ -46,17 +46,39 @@ export function TarotChat({ tarotReading, onClose }: TarotChatProps) {
     setIsTyping(true)
 
     // Simulate Nova's response (in a real app, this would be handled by the backend)
-    setTimeout(() => {
+    // setTimeout(() => {
+    //   const novaMessage: ChatMessage = {
+    //     sender: "nova",
+    //     text: `This is a placeholder response. In the actual implementation, Nova would respond to your question about: "${userMessage.text}"`,
+    //     timestamp: new Date(),
+    //   }
+
+    //   setMessages((prev) => [...prev, novaMessage])
+    //   setIsTyping(false)
+    //   setExchangeCount((prev) => prev + 1)
+    // }, 2000)
+
+    const message = "Act as a tarot expert at spread reading, based on your previous response: " + tarotReading + "user has follow up questions:" + inputValue
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
+      })
+      const data = await res.json();
       const novaMessage: ChatMessage = {
         sender: "nova",
-        text: `This is a placeholder response. In the actual implementation, Nova would respond to your question about: "${userMessage.text}"`,
+        text: data.response,
         timestamp: new Date(),
       }
-
       setMessages((prev) => [...prev, novaMessage])
       setIsTyping(false)
       setExchangeCount((prev) => prev + 1)
-    }, 2000)
+    } catch (error) {
+      console.error('Error sending user messages:', error);
+    }
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
