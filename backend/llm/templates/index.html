@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat 对话</title>
+</head>
+<body>
+    <h1>与 DummyModel 对话</h1>
+    <form id="chat-form">
+        <input type="text" id="message-input" placeholder="输入你的消息" required />
+        <button type="submit">发送</button>
+    </form>
+    <div id="chat-response" style="margin-top: 20px;"></div>
+
+    <script>
+        document.getElementById('chat-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const message = document.getElementById('message-input').value;
+            const responseDiv = document.getElementById('chat-response');
+            responseDiv.innerText = '等待回复...';
+            
+            try {
+                const res = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+                const data = await res.json();
+                if (data.response) {
+                    responseDiv.innerText = data.response;
+                } else if (data.error) {
+                    responseDiv.innerText = 'Error: ' + data.error;
+                }
+            } catch (err) {
+                responseDiv.innerText = 'Error: ' + err;
+            }
+        });
+    </script>
+</body>
+</html>

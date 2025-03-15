@@ -34,7 +34,7 @@ export default function UserInfoPage() {
         >
           <h1 className="mb-6 text-3xl font-bold text-center font-cinzel text-nova-purple">Your Cosmic Profile</h1>
 
-          <p className="mb-8 text-center font-parisienne text-xl">
+          <p className="mb-8 text-center font-fell text-xl">
             Please enter your name and birthday, so the stars can align just for you.
           </p>
 

@@ -35,7 +35,7 @@ export default function FunctionsPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="mb-12 text-xl text-center font-parisienne"
+          className="mb-12 text-xl text-center font-fell"
         >
           Choose your path:
         </motion.p>
@@ -57,9 +57,9 @@ export default function FunctionsPage() {
                 <Sparkles className="w-16 h-16 text-nova-purple" />
               </motion.div>
             </div>
-            <h2 className="mb-4 text-2xl font-bold text-center font-cinzel">Daily Crystal Ball</h2>
+            <h2 className="mb-4 text-2xl font-bold text-center font-cinzel">🔮 Crystal Orb Prophecy</h2>
             <p className="mb-6 text-center">Receive daily wisdom and guidance from the mystical crystal ball.</p>
-            <MagicalButton onClick={() => router.push("/crystal-ball")}>Gaze Into the Crystal</MagicalButton>
+            <MagicalButton onClick={() => router.push("/crystal-ball")}>Gaze Into the Mystic Orb</MagicalButton>
           </motion.div>
 
           <motion.div
@@ -81,7 +81,7 @@ export default function FunctionsPage() {
                 </svg>
               </motion.div>
             </div>
-            <h2 className="mb-4 text-2xl font-bold text-center font-cinzel">Nova Tells You</h2>
+            <h2 className="mb-4 text-2xl font-bold text-center font-cinzel">✨ Insigts From Nova</h2>
             <p className="mb-6 text-center">
               Seek answers to your questions through Yes/No divination or Tarot readings.
             </p>
@@ -106,7 +106,7 @@ export default function FunctionsPage() {
                 </svg>
               </motion.div>
             </div>
-            <h2 className="mb-4 text-2xl font-bold text-center font-cinzel">Soul Journal</h2>
+            <h2 className="mb-4 text-2xl font-bold text-center font-cinzel">📝 Soul Journal</h2>
             <p className="mb-6 text-center">
               Explore your inner world through guided reflective writing and emotional insights.
             </p>

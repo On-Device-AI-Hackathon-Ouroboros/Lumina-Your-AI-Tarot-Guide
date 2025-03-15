@@ -208,7 +208,7 @@ export function JournalSummary({ journalText }: JournalSummaryProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
         >
-          <p className="font-parisienne text-xl">
+          <p className="font-fell text-xl">
             These energies reflect your current state of being. Consider how they might guide your path forward.
           </p>
         </motion.div>

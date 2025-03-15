@@ -131,7 +131,7 @@ export function JournalGuidance({ journalText, onClose }: JournalGuidanceProps) 
             transition={{ delay: 0.3 }}
           >
             <div className="absolute top-1/2 -left-2 transform -translate-y-1/2 w-0 h-0 border-t-8 border-r-8 border-b-8 border-transparent border-r-white/20" />
-            <p className="font-parisienne text-lg">{guidanceQuestion}</p>
+            <p className="font-fell text-lg">{guidanceQuestion}</p>
             <div className="text-xs text-right italic opacity-70 mt-2">Tap the orb to dismiss</div>
           </motion.div>
         </motion.div>

@@ -185,7 +185,7 @@ export function TarotChat({ tarotReading, onClose }: TarotChatProps) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="mb-4 font-parisienne text-lg">
+          <p className="mb-4 font-fell text-lg">
             You've reached the maximum number of exchanges. The cosmic energies need to rest.
           </p>
           <MagicalButton onClick={onClose}>New Reading</MagicalButton>

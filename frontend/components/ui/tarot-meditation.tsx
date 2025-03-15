@@ -72,7 +72,7 @@ export function TarotMeditation({ questionCategory, onComplete }: TarotMeditatio
     >
       <h2 className="mb-6 text-2xl font-bold text-center font-cinzel">Prepare Your Mind</h2>
 
-      <p className="mb-8 text-center font-parisienne text-xl max-w-2xl">
+      <p className="mb-8 text-center font-fell text-xl max-w-2xl">
         Close your eyes and take a moment to focus on your {questionCategory.toLowerCase()} question. Let your mind
         become clear as you breathe deeply.
       </p>
@@ -139,7 +139,7 @@ export function TarotMeditation({ questionCategory, onComplete }: TarotMeditatio
 
         {/* Breathing instruction text */}
         <motion.div
-          className="absolute text-center text-white/90 font-parisienne text-2xl"
+          className="absolute text-center text-white/90 font-fell text-2xl"
           key={breathingPhase} // Force re-render for animation
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -171,10 +171,12 @@ export function TarotMeditation({ questionCategory, onComplete }: TarotMeditatio
       <AnimatePresence>
         {isReady && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <p className="mb-6 text-center font-parisienne text-xl">
+            <p className="mb-6 align-itmes-center text-center font-fell text-xl">
               With your question in mind, you are ready to consult the cards.
             </p>
-            <MagicalButton onClick={onComplete}>Reveal the Cards</MagicalButton>
+            <div className="flex justify-center" >
+              <MagicalButton onClick={onComplete}>Reveal the Cards</MagicalButton>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

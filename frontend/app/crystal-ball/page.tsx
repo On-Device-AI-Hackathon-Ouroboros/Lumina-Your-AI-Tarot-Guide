@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { MagicalBackground } from "@/components/ui/magical-background"
 import { MagicalButton } from "@/components/ui/magical-button"
 import { useRouter } from "next/navigation"
+import { set } from "date-fns"
 
 // Array of daily wisdom quotes
 const wisdomQuotes = [
@@ -35,18 +36,19 @@ export default function CrystalBallPage() {
 
   const generateQuote = () => {
     setIsGenerating(true)
+    const randomIndex = Math.floor(Math.random() * wisdomQuotes.length)
 
     // Simulate a magical process with a delay
     setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * wisdomQuotes.length)
       setQuote(wisdomQuotes[randomIndex])
       setIsGenerating(false)
-    }, 1500)
+    }, 1000)
   }
 
   const handleGenerateQuote = async () => {
-    setIsGenerating(true);
-    const message = `Act as a crystal ball that reveals the future. Your task is to generate a personalized quote \
+    setIsGenerating(true)
+    generateQuote()
+    const message = `Act as a crystal ball that reveals the future. Your task is to generate a one-sentence personalized quote \
     for ${userName}, with a birthday on ${userBirthday}. \n \
     Examples of quotes are: 'Embrace the unknown, for magic blossoms in unexpected places.', \
     'The stars whisper secrets to those who listen with their heart.',\
@@ -67,6 +69,7 @@ export default function CrystalBallPage() {
         body: JSON.stringify({ message }),
       })
       const data = await res.json();
+      console.log('Generated Quote:', data.response);
       setQuote(data.response);
     } catch (error) {
       console.error('Error Generating Quote:', error);
@@ -82,7 +85,7 @@ export default function CrystalBallPage() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="mb-8 text-3xl font-bold text-center font-cinzel text-nova-purple"
+          className="mb-8 text-3xl font-bold text-center font-fell text-nova-purple"
         >
           Your Daily Crystal Ball
         </motion.h1>
@@ -122,14 +125,14 @@ export default function CrystalBallPage() {
             transition={{ duration: 0.8, delay: 1 }}
             className="max-w-md p-6 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 shadow-lg"
           >
-            <h2 className="mb-4 text-xl font-bold text-center font-cinzel">Today&apos;s Message:</h2>
+            <h2 className="mb-4 text-xl font-bold text-center font-fell">Today&apos;s Message:</h2>
 
             {isGenerating ? (
               <div className="h-20 flex items-center justify-center">
                 <motion.div
                   animate={{ opacity: [0.5, 1, 0.5] }}
                   transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-                  className="text-center text-lg font-parisienne"
+                  className="text-center text-lg font-almendra"
                 >
                   The crystal ball is revealing wisdom...
                 </motion.div>
@@ -139,7 +142,7 @@ export default function CrystalBallPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1 }}
-                className="text-center text-lg font-parisienne"
+                className="text-center text-lg font-fell"
               >
                 {quote}
               </motion.p>
