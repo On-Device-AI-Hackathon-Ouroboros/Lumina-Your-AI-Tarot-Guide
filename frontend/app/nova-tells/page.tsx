@@ -135,10 +135,14 @@ export default function NovaTellsPage() {
   const [showMeditation, setShowMeditation] = useState(false)
   const [showDealingAnimation, setShowDealingAnimation] = useState(false)
   const [showTarotGrid, setShowTarotGrid] = useState(false)
+  const [userName, setUserName] = useState<string | null>(null)
+  const [userBirthday, setUserBirthday] = useState<string | null>(null)
 
   // Shuffle the deck when the component mounts
   useEffect(() => {
     shuffleDeck()
+    setUserName(localStorage.getItem("novaUserName"))
+    setUserBirthday(localStorage.getItem("novaUserBirthday"))
   }, [])
 
   // Handle tab change
@@ -235,44 +239,64 @@ export default function NovaTellsPage() {
     }
   }
 
-  const generateTarotReading = (cardIds: number[], spreadType: TarotSpreadType) => {
+  const generateTarotReading = async (cardIds: number[], spreadType: TarotSpreadType) => {
     setIsGeneratingReading(true)
 
     // Get the selected cards
     const selectedCards = cardIds.map((id) => shuffledDeck.find((card) => card.id === id)!)
+    const selectedCardNames = selectedCards.map((card) => card.name + card.meaning).join(", ")
+    const message = `Act as a tarot reader and generate a reading based on the spread type \
+    '${spreadType}'. For user ${userName}, with a birthday on ${userBirthday}. The selected \
+    cards are: ${selectedCardNames}.`
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
+      })
+      const data = await res.json();
+      setTarotReading(data.response)
+    } catch (error) {
+      console.error('Error Generating tarot reading:', error);
+    }finally {
+      setIsGeneratingReading(false)
+    }
 
     // Simulate AI generating a reading based on spread type
-    setTimeout(() => {
-      let reading = ""
+    // setTimeout(() => {
+    //   let reading = ""
 
-      switch (spreadType) {
-        case "general":
-          reading = `The ${selectedCards[0].name} represents your past, suggesting ${selectedCards[0].meaning.toLowerCase()}. Your present is illuminated by ${selectedCards[1].name}, which indicates ${selectedCards[1].meaning.toLowerCase()}. Looking to your future, ${selectedCards[2].name} reveals ${selectedCards[2].meaning.toLowerCase()}. This timeline shows a journey of personal evolution, with each phase building upon the last.\`  This timeline shows a journey of personal evolution, with each phase building upon the last.`
-          break
+    //   switch (spreadType) {
+    //     case "general":
+    //       reading = `The ${selectedCards[0].name} represents your past, suggesting ${selectedCards[0].meaning.toLowerCase()}. Your present is illuminated by ${selectedCards[1].name}, which indicates ${selectedCards[1].meaning.toLowerCase()}. Looking to your future, ${selectedCards[2].name} reveals ${selectedCards[2].meaning.toLowerCase()}. This timeline shows a journey of personal evolution, with each phase building upon the last.\`  This timeline shows a journey of personal evolution, with each phase building upon the last.`
+    //       break
 
-        case "love":
-          reading = `The ${selectedCards[0].name} at the base of your pyramid represents the foundation of your relationship, showing ${selectedCards[0].meaning.toLowerCase()}. The ${selectedCards[1].name} reveals your partner's energy, bringing ${selectedCards[1].meaning.toLowerCase()} to the connection. The ${selectedCards[2].name} shows the dynamics between you, creating ${selectedCards[2].meaning.toLowerCase()}. At the peak, ${selectedCards[3].name} indicates the potential outcome, suggesting ${selectedCards[3].meaning.toLowerCase()} if you follow this path.`
-          break
+    //     case "love":
+    //       reading = `The ${selectedCards[0].name} at the base of your pyramid represents the foundation of your relationship, showing ${selectedCards[0].meaning.toLowerCase()}. The ${selectedCards[1].name} reveals your partner's energy, bringing ${selectedCards[1].meaning.toLowerCase()} to the connection. The ${selectedCards[2].name} shows the dynamics between you, creating ${selectedCards[2].meaning.toLowerCase()}. At the peak, ${selectedCards[3].name} indicates the potential outcome, suggesting ${selectedCards[3].meaning.toLowerCase()} if you follow this path.`
+    //       break
 
-        case "career":
-          reading = `The ${selectedCards[0].name} forms the roots of your career tree, indicating ${selectedCards[0].meaning.toLowerCase()} as your foundation. The left branch, ${selectedCards[1].name}, suggests ${selectedCards[1].meaning.toLowerCase()} as one path of growth. The right branch, ${selectedCards[2].name}, offers ${selectedCards[2].meaning.toLowerCase()} as an alternative direction. The ${selectedCards[3].name} and ${selectedCards[4].name} represent the fruits of these paths, promising ${selectedCards[3].meaning.toLowerCase()} and ${selectedCards[4].meaning.toLowerCase()} respectively. Your wealth tree is flourishing with potential.`
-          break
+    //     case "career":
+    //       reading = `The ${selectedCards[0].name} forms the roots of your career tree, indicating ${selectedCards[0].meaning.toLowerCase()} as your foundation. The left branch, ${selectedCards[1].name}, suggests ${selectedCards[1].meaning.toLowerCase()} as one path of growth. The right branch, ${selectedCards[2].name}, offers ${selectedCards[2].meaning.toLowerCase()} as an alternative direction. The ${selectedCards[3].name} and ${selectedCards[4].name} represent the fruits of these paths, promising ${selectedCards[3].meaning.toLowerCase()} and ${selectedCards[4].meaning.toLowerCase()} respectively. Your wealth tree is flourishing with potential.`
+    //       break
 
-        case "choices":
-          reading = `The ${selectedCards[0].name} at the center represents your current position, showing ${selectedCards[0].meaning.toLowerCase()}. The left path begins with ${selectedCards[1].name}, suggesting ${selectedCards[1].meaning.toLowerCase()}, and leads to ${selectedCards[2].name}, which promises ${selectedCards[2].meaning.toLowerCase()}. The right path starts with ${selectedCards[3].name}, indicating ${selectedCards[3].meaning.toLowerCase()}, and culminates in ${selectedCards[4].name}, offering ${selectedCards[4].meaning.toLowerCase()}. Both paths have merit, but one resonates more with your true desires.`
-          break
+    //     case "choices":
+    //       reading = `The ${selectedCards[0].name} at the center represents your current position, showing ${selectedCards[0].meaning.toLowerCase()}. The left path begins with ${selectedCards[1].name}, suggesting ${selectedCards[1].meaning.toLowerCase()}, and leads to ${selectedCards[2].name}, which promises ${selectedCards[2].meaning.toLowerCase()}. The right path starts with ${selectedCards[3].name}, indicating ${selectedCards[3].meaning.toLowerCase()}, and culminates in ${selectedCards[4].name}, offering ${selectedCards[4].meaning.toLowerCase()}. Both paths have merit, but one resonates more with your true desires.`
+    //       break
 
-        case "spiritual":
-          reading = `Your mind is represented by ${selectedCards[0].name}, revealing ${selectedCards[0].meaning.toLowerCase()} in your thoughts and beliefs. Your body's energy is shown through ${selectedCards[1].name}, manifesting as ${selectedCards[1].meaning.toLowerCase()} in your physical experience. Your spirit is illuminated by ${selectedCards[2].name}, bringing ${selectedCards[2].meaning.toLowerCase()} to your inner self. The integration card, ${selectedCards[3].name}, suggests that ${selectedCards[3].meaning.toLowerCase()} will help you harmonize these aspects of your being.`
-          break
+    //     case "spiritual":
+    //       reading = `Your mind is represented by ${selectedCards[0].name}, revealing ${selectedCards[0].meaning.toLowerCase()} in your thoughts and beliefs. Your body's energy is shown through ${selectedCards[1].name}, manifesting as ${selectedCards[1].meaning.toLowerCase()} in your physical experience. Your spirit is illuminated by ${selectedCards[2].name}, bringing ${selectedCards[2].meaning.toLowerCase()} to your inner self. The integration card, ${selectedCards[3].name}, suggests that ${selectedCards[3].meaning.toLowerCase()} will help you harmonize these aspects of your being.`
+    //       break
 
-        default:
-          reading = `The cards reveal a powerful message: ${selectedCards.map((card) => `${card.name} (${card.meaning.toLowerCase()})`).join(", ")}. Together, they suggest that you are at a significant crossroads. Trust your intuition and embrace the changes coming your way. The cosmic energies are supporting your transformation.`
-      }
+    //     default:
+    //       reading = `The cards reveal a powerful message: ${selectedCards.map((card) => `${card.name} (${card.meaning.toLowerCase()})`).join(", ")}. Together, they suggest that you are at a significant crossroads. Trust your intuition and embrace the changes coming your way. The cosmic energies are supporting your transformation.`
+    //   }
 
-      setTarotReading(reading)
-      setIsGeneratingReading(false)
-    }, 3000)
+    //   setTarotReading(reading)
+    //   setIsGeneratingReading(false)
+    // }, 3000)
   }
 
   const resetTarotReading = () => {
@@ -542,7 +566,7 @@ export default function NovaTellsPage() {
 
           <div className="flex justify-center mt-8">
             <MagicalButton variant="outline" onClick={() => router.push("/functions")}>
-              Return to Functions
+              Return to Your Journay
             </MagicalButton>
           </div>
         </div>

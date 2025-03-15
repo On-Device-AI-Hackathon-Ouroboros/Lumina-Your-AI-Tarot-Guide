@@ -45,6 +45,9 @@ export function TarotMeditation({ questionCategory, onComplete }: TarotMeditatio
     return () => clearTimeout(timer)
   }, [breathingPhase, breathCount])
 
+  const skipMeditation = () => {
+    setBreathCount(maxBreaths)
+  }
   // Get breathing instruction text
   const getBreathingText = () => {
     switch (breathingPhase) {
@@ -163,6 +166,7 @@ export function TarotMeditation({ questionCategory, onComplete }: TarotMeditatio
           ))}
         </div>
       </div>
+      {!isReady && <MagicalButton onClick={skipMeditation}>Skip Meditation</MagicalButton>}
 
       <AnimatePresence>
         {isReady && (
