@@ -245,20 +245,21 @@ export default function NovaTellsPage() {
     // Get the selected cards
     const selectedCards = cardIds.map((id) => shuffledDeck.find((card) => card.id === id)!)
     const selectedCardNames = selectedCards.map((card) => card.name + card.meaning).join(", ")
-    const message = `Suppose you're a professional tarot reader, For user ${userName}, with a birthday on ${userBirthday}, 
-    given the following tarot spread '${spreadType}', \
-    interpret the meaning of the cards ${selectedCardNames} in the context of the user’s life. \n \
-    Consider the symbolism, traditional meanings, and their placement in the spread. \
-    Provide a reading that is both empowering and insightful, offering practical advice for the user. Do not ask the user \
-    any questions or request additional information. \
-    Your response should include: \
-    1. A brief introduction to set the tone. \
-    2. An one-sentence interpretation of each card's meaning in the spread. \
-    3. A summary of the overall reading, highlighting key themes \
-    4. Actionable guidance, offering the user insight into their next steps. \
-    5. A closing message that feels mystical, leaving the user inspired.`
+    // const message = `Suppose you're a professional tarot reader, For user ${userName}, with a birthday on ${userBirthday}, 
+    // given the following tarot spread '${spreadType}', \
+    // interpret the meaning of the cards ${selectedCardNames} in the context of the user’s life. \n \
+    // Consider the symbolism, traditional meanings, and their placement in the spread. \
+    // Provide a reading that is both empowering and insightful, offering practical advice for the user. Do not ask the user \
+    // any questions or request additional information. \
+    // Your response should include: \
+    // 1. A brief introduction to set the tone. \
+    // 2. An one-sentence interpretation of each card's meaning in the spread. \
+    // 3. A summary of the overall reading, highlighting key themes \
+    // 4. Actionable guidance, offering the user insight into their next steps. \
+    // 5. A closing message that feels mystical, leaving the user inspired. `
+    const message = "Suppose you're a professional tarot reader, for user given the following tarot spread '${spreadType}', interpret the meaning of the cards ${selectedCardNames} in the context of the user's life. Consider the symbolism, traditional meanings, and their placement in the spread. Provide a reading that is both empowering and insightful, offering practical advice for the user. Do not ask the user any questions or request additional information. Your response should include: 1. A brief introduction to set the tone. 2. A one-sentence interpretation of each card's meaning in the spread. 3. A summary of the overall reading, highlighting key themes. 4. Actionable guidance, offering the user insight into their next steps. 5. A closing message that feels mystical, leaving the user inspired. Answer in exactly one sentence only."
 
-    // const message = 'tell me a joke'
+    const messag = 'tell me a joke'
 
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 120000)
