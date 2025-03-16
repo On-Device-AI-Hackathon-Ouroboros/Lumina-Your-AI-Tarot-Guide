@@ -13,6 +13,7 @@ import { TarotSpread } from "@/components/ui/tarot-spread"
 import { TarotMeditation } from "@/components/ui/tarot-meditation"
 import { TarotChat } from "@/components/ui/tarot-chat"
 import { Shuffle } from 'lucide-react'
+import ReactMarkDown from 'react-markdown'
 
 // Array of Yes/No responses
 const yesNoResponses = [
@@ -245,18 +246,14 @@ export default function NovaTellsPage() {
     // Get the selected cards
     const selectedCards = cardIds.map((id) => shuffledDeck.find((card) => card.id === id)!)
     const selectedCardNames = selectedCards.map((card) => card.name + card.meaning).join(", ")
-    const message = `Suppose you're a professional tarot reader, For user ${userName}, with a birthday on ${userBirthday}, 
-    given the following tarot spread '${spreadType}', 
-    interpret the meaning of the cards ${selectedCardNames} in the context of the user’s life. 
-    Consider the symbolism, traditional meanings, and their placement in the spread. 
-    Provide a reading that is both empowering and insightful, offering practical advice for the user. Do not ask the user
-    any questions or request additional information.
-    Your response should include: 
-    1. A brief introduction to set the tone. 
-    2. An one-sentence interpretation of each card's meaning in the spread. 
-    3. A summary of the overall reading, highlighting key themes 
-    4. Actionable guidance, offering the user insight into their next steps.
-    5. A closing message that feels mystical, leaving the user inspired.` 
+    const message = `Suppose you're a professional tarot reader, for user given the following tarot spread ${spreadType}, interpret the meaning of the cards ${selectedCardNames} in the context of the user's life. Consider the symbolism, traditional meanings, and their placement in the spread. Provide a reading that is both empowering and insightful, offering practical advice for the user. Do not ask the user any questions or request additional information. Your response should include: 1. A brief introduction to set the tone. 2. No need for seperate interpretation of each card's meaning in the spread. 3. A summary of the overall reading, highlighting key themes. 4. Actionable guidance, offering the user insight into their next steps. 5. A closing message that feels mystical, leaving the user inspired.`
+
+    // const message = 'tell me a joke'
+
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 120000)
+
+    console.log(message)
 
     try {
       const res = await fetch('/api/chat', {
@@ -265,13 +262,20 @@ export default function NovaTellsPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ message }),
+        signal: controller.signal
       })
+      if(!res.ok){
+        const rawText = await res.text();
+        throw Error("Error received from backend"+rawText)
+      }
+      // console.log(JSON.stringify(res.json()))
       const data = await res.json();
       setTarotReading(data.response)
     } catch (error) {
       console.error('Error Generating tarot reading:', error);
     }finally {
       setIsGeneratingReading(false)
+      clearTimeout(timeoutId)
     }
 
     // Simulate AI generating a reading based on spread type
@@ -553,14 +557,16 @@ export default function NovaTellsPage() {
                       >
                         <div className="p-6 mb-6 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30">
                           <h3 className="mb-4 text-xl font-bold text-center font-cinzel">Nova&apos;s Insight:</h3>
-                          <p className="text-center font-fell text-lg">{tarotReading}</p>
+                          <div className="text-center font-fell text-lg">
+                            <ReactMarkDown>{tarotReading}</ReactMarkDown>
+                          </div>
                         </div>
 
                         <div className="flex justify-center gap-4">
                           <MagicalButton onClick={() => setShowChat(true)}>Ask Nova About Your Reading</MagicalButton>
-                          <MagicalButton variant="outline" onClick={resetTarotReading}>
+                          {/* <MagicalButton variant="outline" onClick={resetTarotReading}>
                             New Reading
-                          </MagicalButton>
+                          </MagicalButton> */}
                         </div>
                       </motion.div>
                     )}
