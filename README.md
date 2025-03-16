@@ -1,29 +1,41 @@
 # Lumina - Your AI Tarot Guide
-Lumina is an on-device AI tarot reading companion designed to provide comfort and guidance during uncertain times. In a world where anxiety and desperation often cloud our judgment, Lumina offers a gentle, spam-free alternative to lengthy tarot reader waitlists and unreliable fortune-telling apps.
+Lumina is an on-device AI tarot reading companion designed to provide comfort and guidance during uncertain times. In a world where anxiety and desperation often cloud our judgment, Lumina offers a gentle, spam-free alternative to lengthy tarot reader waitlists and unreliable fortune-telling apps.  
+
 Developed in just 24 hours during a hackathon, Lumina focuses on creating a warm, supportive experience rather than fancy features. It serves as a digital companion that celebrates your happiness, comforts you during struggles, and reminds you of your inner strength when life becomes overwhelming.
+
+## Table of Contents
+- [Why On-device](#why-on-device)
+- [Features](#features)
+- [Developers](#developers)
+- [Setup Instructions](#setup-instructions)
+- [Run Instructions](#run-instructions)
+- [Tech Stack](#tech-stack)
+- [Video Walkthrough](#video-walkthrough)
+- [Notes](#notes)
+- [License](#license)
 
 ## Why On-device
 Why Lumina is just perfect for on-device:
-1. Privacy and Intimacy: Tarot readings and personal journaling are deeply private experiences. By keeping Lumina on-device, all your personal reflections, emotional data, and questions stay completely on your device.
-2. Emotional Security: When people turn to mystical practices, they're often in vulnerable emotional states. On-device processing creates a sense of emotional safety and containment. 
-3. Resource Efficiency: Our tarot reading algorithms and journal analysis don't require massive computing power, making them perfect for efficient on-device processing that won't drain your battery.
+1. **Privacy and Intimacy**: Tarot readings and personal journaling are deeply private experiences. By keeping Lumina on-device, all your personal reflections, emotional data, and questions stay completely on your device.
+2. **Emotional Security**: When people turn to mystical practices, they're often in vulnerable emotional states. On-device processing creates a sense of emotional safety and containment. 
+3. **Resource Efficiency**: Our tarot reading algorithms and journal analysis don't require massive computing power, making them perfect for efficient on-device processing that won't drain your battery.
 
 ## Features
-🔮 Crystal Ball
+### 🔮 Crystal Ball  
 Receive personalized oracle messages based on your birthday and the exact moment you seek guidance. These messages aren't random but specifically generated for your "moment of seeking."
 
-🃏 Tarot Reading
+### 🃏 Tarot Reading  
 Lumina offers two types of readings:
 1. Yes or No: Get quick, concise, and clear answers to pressing questions when you're feeling indecisive about matters like "Will we meet again?" or "Should I make this relationship exclusive?"
 2. Lumina Tells You: Receive detailed insights by selecting a category (love, career, self-discovery, etc.). Lumina automatically matches the most suitable card spread for your question and provides comprehensive guidance. Continue the conversation to explore your reading further.
 
-📓 Self Journal
+### 📓 Self Journal  
 Your personal space to document thoughts, emotions, and daily experiences. Unlike standard mood tracking apps that require you to define your emotions (which most people struggle with), Lumina uses AI to analyze your journal entries and provide emotional insights. Future updates will include a database feature to track emotional patterns over time.
 
 ## Developers
-Ziqi Liu, [Linkedin](https://www.linkedin.com/in/ziqi-l-scarlett/)
-Ya Ji, [Linkdedin](https://www.linkedin.com/in/ya-ji/)
-Yijia Ma, [LinkedIn](https://linkedin.com/in/yijia-ma-815a23250)
+- Ziqi Liu, [Linkedin](https://www.linkedin.com/in/ziqi-l-scarlett/)  
+- Ya Ji, [Linkedin](https://www.linkedin.com/in/ya-ji/)  
+- Yijia Ma, [Linkedin](https://linkedin.com/in/yijia-ma-815a23250)
 
 ## Setup Instructions
 ```
@@ -43,16 +55,9 @@ cd backend/model_2
 python -m venv llm-venv
 source llm-venv/bin/activate
 pip install -r requirements.txt
-
-# To verify the model works
-python ./src/workspace.py
-python ./src/chatbot.py
-
-# Run backend server
-python model.py
 ```
 
-# Run Instructions
+## Run Instructions
 Before running the servers, make sure you're in the root directory of the project (`./Lumina-Your Tarot Guide`).
 ### Run frontend server  
 ```
@@ -63,19 +68,42 @@ npm run dev
 ### Run backend server  
 ```
 cd backend  
-python ./src/workspace.py  
+# To verify the model works
+python ./src/workspace.py
+python ./src/chatbot.py
+
+# Run backend server
 python model.py
 ```
+
+## Tech Stack
+### Frontend
+Typescript
+Next.js
+Express
+React
+### Backend
+Python
+Flask
 
 ## Video Walkthrough
 
 Here's a walkthrough of Lumina AI:
-
-[Video Walkthrough](https://www.loom.com/share/your-video-link)
-GIF created with Loom
+[Video Walkthrough](https://www.loom.com/share/your-video-link)  
+Video created with Loom
 
 ## Notes
+1. **Model Comparison**:
+	•	**Llama-3.1-8b-chat-8k**: Based on our experiments, this model performs more stably within the AnythingLLM framework compared to Llama-3.2-3b-chat-8k.
 
+2. **AnythingLLM Considerations**:
+	•	**Model Switching**: AnythingLLM may require a restart and switching between models to maintain responsiveness. 
+
+3. **Next.js Socket Behavior**:
+	•	**Auto Socket Close on Timeout**: Next.js has an automatic socket close mechanism when a timeout occurs. This behavior can cause issues during debugging, especially with complex prompts that take longer to process. Even if the backend is working well, the frontend might still encounter internal server errors due to the socket timeout.
+
+4. **Prompt Engineering Optimization**
+  •	Excessively long prompts resulted in unstable responses, while imprecise prompts generated unsatisfactory answers. We spent much time fine-tuning our prompts to achieve the balance between specificity and reliability.
 
 ## License
 
