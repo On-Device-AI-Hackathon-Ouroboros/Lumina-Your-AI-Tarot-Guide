@@ -1,7 +1,7 @@
-# Lumina - Your AI Tarot Guide
-Lumina is an on-device AI tarot reading companion designed to provide comfort and guidance during uncertain times. In a world where anxiety and desperation often cloud our judgment, Lumina offers a gentle, spam-free alternative to lengthy tarot reader waitlists and unreliable fortune-telling apps.  
+# Nova - Your AI Tarot Guide
+Nova is an on-device AI tarot reading companion designed to provide comfort and guidance during uncertain times. In a world where anxiety and desperation often cloud our judgment, Nova offers a gentle, spam-free alternative to lengthy tarot reader waitlists and unreliable fortune-telling apps.  
 
-Developed in just 24 hours during a hackathon, Lumina focuses on creating a warm, supportive experience rather than fancy features. It serves as a digital companion that celebrates your happiness, comforts you during struggles, and reminds you of your inner strength when life becomes overwhelming.
+Developed in just 24 hours during a hackathon, Nova focuses on creating a warm, supportive experience rather than fancy features. It serves as a digital companion that celebrates your happiness, comforts you during struggles, and reminds you of your inner strength when life becomes overwhelming.
 
 ## Table of Contents
 - [Why On-device](#why-on-device)
@@ -15,8 +15,8 @@ Developed in just 24 hours during a hackathon, Lumina focuses on creating a warm
 - [License](#license)
 
 ## Why On-device
-Why Lumina is just perfect for on-device:
-1. **Privacy and Intimacy**: Tarot readings and personal journaling are deeply private experiences. By keeping Lumina on-device, all your personal reflections, emotional data, and questions stay completely on your device.
+Why Nova is just perfect for on-device:
+1. **Privacy and Intimacy**: Tarot readings and personal journaling are deeply private experiences. By keeping Nova on-device, all your personal reflections, emotional data, and questions stay completely on your device.
 2. **Emotional Security**: When people turn to mystical practices, they're often in vulnerable emotional states. On-device processing creates a sense of emotional safety and containment. 
 3. **Resource Efficiency**: Our tarot reading algorithms and journal analysis don't require massive computing power, making them perfect for efficient on-device processing that won't drain your battery.
 
@@ -25,12 +25,12 @@ Why Lumina is just perfect for on-device:
 Receive personalized oracle messages based on your birthday and the exact moment you seek guidance. These messages aren't random but specifically generated for your "moment of seeking."
 
 ### 🃏 Tarot Reading  
-Lumina offers two types of readings:
+Nova offers two types of readings:
 1. Yes or No: Get quick, concise, and clear answers to pressing questions when you're feeling indecisive about matters like "Will we meet again?" or "Should I make this relationship exclusive?"
-2. Lumina Tells You: Receive detailed insights by selecting a category (love, career, self-discovery, etc.). Lumina automatically matches the most suitable card spread for your question and provides comprehensive guidance. Continue the conversation to explore your reading further.
+2. Nova Tells You: Receive detailed insights by selecting a category (love, career, self-discovery, etc.). Nova automatically matches the most suitable card spread for your question and provides comprehensive guidance. Continue the conversation to explore your reading further.
 
 ### 📓 Self Journal  
-Your personal space to document thoughts, emotions, and daily experiences. Unlike standard mood tracking apps that require you to define your emotions (which most people struggle with), Lumina uses AI to analyze your journal entries and provide emotional insights. Future updates will include a database feature to track emotional patterns over time.
+Your personal space to document thoughts, emotions, and daily experiences. Unlike standard mood tracking apps that require you to define your emotions (which most people struggle with), Nova uses AI to analyze your journal entries and provide emotional insights. Future updates will include a database feature to track emotional patterns over time.
 
 ## Developers
 - Ziqi Liu, [Linkedin](https://www.linkedin.com/in/ziqi-l-scarlett/)  
@@ -39,8 +39,8 @@ Your personal space to document thoughts, emotions, and daily experiences. Unlik
 
 ## Setup Instructions
 ```
-git clone https://github.com/On-Device-AI-Hackathon-Ouroboros/Lumina-Your-AI-Tarot-Guide.git  
-cd Lumina-Your Tarot Guide  
+git clone https://github.com/On-Device-AI-Hackathon-Ouroboros/Nova-Your-AI-Tarot-Guide.git  
+cd Nova-Your Tarot Guide  
 # Frontend setup
 cd frontend 
 pip install -r requirements.txt
@@ -58,7 +58,7 @@ pip install -r requirements.txt
 ```
 
 ## Run Instructions
-Before running the servers, make sure you're in the root directory of the project (`./Lumina-Your Tarot Guide`).
+Before running the servers, make sure you're in the root directory of the project (`./Nova-Your Tarot Guide`).
 ### Run frontend server  
 ```
 cd frontend  
@@ -88,7 +88,7 @@ Flask
 
 ## Video Walkthrough
 
-Here's a walkthrough of Lumina AI:
+Here's a walkthrough of Nova AI:
 [Video Walkthrough](https://www.loom.com/share/your-video-link)  
 Video created with Loom
 
