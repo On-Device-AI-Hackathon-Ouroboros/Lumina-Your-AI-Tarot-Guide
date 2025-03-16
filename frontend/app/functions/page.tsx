@@ -81,7 +81,7 @@ export default function FunctionsPage() {
                 </svg>
               </motion.div>
             </div>
-            <h2 className="mb-4 text-2xl font-bold text-center font-cinzel">✨ Insigts From Nova</h2>
+            <h2 className="mb-4 text-2xl font-bold text-center font-cinzel">✨ Insights From Nova</h2>
             <p className="mb-6 text-center">
               Seek answers to your questions through Yes/No divination or Tarot readings.
             </p>

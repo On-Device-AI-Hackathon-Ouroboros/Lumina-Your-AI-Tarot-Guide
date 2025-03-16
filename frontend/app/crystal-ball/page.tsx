@@ -47,8 +47,8 @@ export default function CrystalBallPage() {
 
   const handleGenerateQuote = async () => {
     setIsGenerating(true)
-    const m = `Act as a crystal ball that reveals the future. Your task is to generate a one-sentence personalized quote \
-    for ${userName}, with a birthday on ${userBirthday}. \n \
+    const message = `Act as a crystal ball that reveals the future. Your task is to generate a one-sentence personalized quote \
+    for ${userName}, with a birthday on ${userBirthday}. \
     Examples of quotes are: 'Embrace the unknown, for magic blossoms in unexpected places.', \
     'The stars whisper secrets to those who listen with their heart.',\
     'Your path is illuminated by the light you carry within.',\
@@ -59,7 +59,7 @@ export default function CrystalBallPage() {
     'Sometimes the longest journey is the distance from your head to your heart.',\
     'The answers you seek are already within you, waiting to be discovered.',\
     'When you dance with the universe, miracles become your rhythm.'`
-    const message = "tell me a joke."
+    // const message = "tell me a joke."
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',

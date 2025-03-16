@@ -6,6 +6,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { MagicalButton } from "./magical-button"
 import { Send } from "lucide-react"
+import ReactMarkDown from 'react-markdown'
 
 interface TarotChatProps {
   tarotReading: string
@@ -58,7 +59,7 @@ export function TarotChat({ tarotReading, onClose }: TarotChatProps) {
     //   setExchangeCount((prev) => prev + 1)
     // }, 2000)
 
-    const message = "Act as a tarot expert at spread reading, based on your previous response: " + tarotReading + "user has follow up questions:" + inputValue
+    const message = "Act as a tarot expert at spread reading, based on your previous response: " + tarotReading + "user has follow up questions:" + inputValue + "No markdown. Try your best to be precise and warm like a human."
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
@@ -116,7 +117,9 @@ export function TarotChat({ tarotReading, onClose }: TarotChatProps) {
                   message.sender === "user" ? "bg-nova-purple/70 text-white" : "bg-white/30 backdrop-blur-sm"
                 }`}
               >
-                <p className="text-sm">{message.text}</p>
+                <div className="text-sm">
+                  <ReactMarkDown>{message.text}</ReactMarkDown>
+                </div>
                 <p className="text-xs opacity-70 mt-1">
                   {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                 </p>

@@ -19,6 +19,7 @@ export default function SoulJournalPage() {
   const [showSummary, setShowSummary] = useState(false)
   const [lastTypingTime, setLastTypingTime] = useState(0)
   const [characterCount, setCharacterCount] = useState(0)
+  const [isValidText, setIsValidText] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   // Update character count when journal text changes
@@ -28,7 +29,7 @@ export default function SoulJournalPage() {
 
   // Auto-show guidance after a period of typing
   useEffect(() => {
-    if (!showIntro && !showSummary && journalText.length > 50) {
+    if (!showIntro && !showSummary && isValidText) {
       const timer = setTimeout(() => {
         const currentTime = Date.now()
         // If user has been typing and then paused for 10 seconds
@@ -39,7 +40,7 @@ export default function SoulJournalPage() {
 
       return () => clearTimeout(timer)
     }
-  }, [journalText, lastTypingTime, showGuidance, showIntro, showSummary])
+  }, [journalText, lastTypingTime, showGuidance, showIntro, showSummary, isValidText])
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setJournalText(e.target.value)
@@ -65,10 +66,15 @@ export default function SoulJournalPage() {
   }
 
   const handleFinishJournal = () => {
-    // Hide the guidance if it's showing
-    setShowGuidance(false)
-    // Show the summary section
-    setShowSummary(true)
+    if (journalText.length < 10) {
+      alert("Please enter at least 10 characters!")
+    } else {
+      setIsValidText(!isValidText)
+      // Hide the guidance if it's showing
+      setShowGuidance(false)
+      // Show the summary section
+      setShowSummary(true)
+    }
   }
 
   const handleNewEntry = () => {
@@ -159,7 +165,7 @@ export default function SoulJournalPage() {
                   ref={textareaRef}
                   value={journalText}
                   onChange={handleTextChange}
-                  placeholder="Begin writing your thoughts, feelings, and reflections here..."
+                  placeholder="Write down your thoughts, feelings, and reflections here...Please enter at least 10 characters to complete your entry."
                   className="w-full h-64 p-4 mb-4 rounded-lg bg-white/10 backdrop-blur-sm border border-white/30 focus:outline-none focus:ring-2 focus:ring-nova-purple/50 transition-all duration-300 resize-none"
                 />
 
@@ -170,7 +176,7 @@ export default function SoulJournalPage() {
                     <MagicalButton variant="outline" onClick={() => router.push("/functions")}>
                       Cancel
                     </MagicalButton>
-                    <MagicalButton onClick={handleFinishJournal} disabled={journalText.length < 20}>
+                    <MagicalButton onClick={handleFinishJournal}>
                       Complete Entry
                     </MagicalButton>
                   </div>
