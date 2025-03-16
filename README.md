@@ -89,7 +89,7 @@ Flask
 ## Video Walkthrough
 
 Here's a walkthrough of Nova AI:
-[Video Walkthrough](https://www.loom.com/share/your-video-link)  
+[Video Walkthrough](https://www.loom.com/share/e88616a01c494a9eb846a3d2b7b922e2?sid=e92764d3-fc07-4d3b-9683-8c2e4d335efd)  
 Video created with Loom
 
 ## Notes
