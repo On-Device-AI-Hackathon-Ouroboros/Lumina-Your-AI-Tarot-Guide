@@ -1,5 +1,6 @@
 """Sample answers from LLMs on QA task."""
 import logging
+import time
 # from utils import utils
 import atexit
 from flask import Flask, request, jsonify
@@ -12,6 +13,8 @@ CORS(app)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config['ENV'] = 'development'
 app.config['DEBUG'] = True
+logging.basicConfig(level=logging.INFO)
+
 
 # set up
 # utils.setup_logger()
@@ -27,25 +30,46 @@ app.config['DEBUG'] = True
 chatAgent = chatbot.Chatbot()
 
 @app.route('/chat', methods=['POST'])
+# def chat():
+#     print("Request received!!!!!!!!!!!!!!!!")
+#     try:
+#         user_input = request.json.get('message')
+#         if not user_input:
+#             return jsonify({'error': 'No message provided'}), 400
+#         predicted_answer = chatAgent.chat(user_input)
+#         print(predicted_answer)
+#         # logging.info(f"predicted answer is {predicted_answer}")
+#     except Exception as e:
+#         logging.error(f"Error during prediction: {e}")
+#         return jsonify({'error': str(e)}), 500
+#     return jsonify({'response': predicted_answer}), 200
 def chat():
     print("Request received!!!!!!!!!!!!!!!!")
     try:
-        user_input = request.json.get('message')
-        if not user_input:
-            return jsonify({'error': 'No message provided'}), 400
-        # local_prompt = f"You are Nova, a wise tarot oracle. You specialize in providing insightful tarot readings and thoughtful guidance." \
-        # f"Based on the ${user_input}, greet the user and give a response for tarrot reading." \
-        # f"Do not ask more questions or personal information." 
+        # Parse JSON safely
+        data = request.get_json()
+        if not data or 'message' not in data:
+            return jsonify({'error': 'No message provided in the request.'}), 400
 
-        # predicted_answer, token_log_likelihoods, embedding = model.predict(
-        #     local_prompt, args.temperature)
-        # embedding = embedding.cpu() if embedding is not None else None
+        user_input = data['message']
+        # chat_start = time.time()
         predicted_answer = chatAgent.chat(user_input)
-        # logging.info(f"predicted answer is {predicted_answer}")
+        # chat_end = time.time()
+        # logging.info(f"chatAgent.chat execution time: {chat_end - chat_start:.2f} seconds")
+
+        print(f"Predicted answer: {predicted_answer}")
+        
+        # Ensure predicted_answer is valid
+        if predicted_answer is None:
+            return jsonify({'error': 'Failed to generate a response.'}), 500
+        
+        return jsonify({'response': predicted_answer}), 200
+
     except Exception as e:
         logging.error(f"Error during prediction: {e}")
-        return jsonify({'error': str(e)}), 500
-    return jsonify({'response': predicted_answer}), 200
+        # Do not expose internal error details to the user
+        return jsonify({'error': 'An internal error occurred. Please try again later.'}), 500
+
 
 def cleanup_model():
     # del model

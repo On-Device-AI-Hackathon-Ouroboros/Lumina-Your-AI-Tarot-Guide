@@ -1,12 +1,3 @@
-"""
-github.com/thatrandomfrenchdude/simple_npu_chatbot.git
-clone this
-
-AnythingLLM
-API Key: ZSX04G3-9H34XW5-JB631QJ-NQBN2Q0
-
-"""
-
 import requests
 import sys
 import threading
@@ -47,7 +38,12 @@ class Chatbot:
             user_message = input("You: ")
             if user_message.lower() in ["exit", "quit"]:
                 break
-            print("Agent: " + self.chat(user_message))
+            try:
+                print("Agent: " + self.chat(user_message))
+            except Exception as e:
+                print("Error! Check the model is correctly loaded. More details in README troubleshooting section.")
+                sys.exit(f"Error details: {e}")
+                
 
     def chat(self, message: str) -> str:
         """
@@ -93,6 +89,7 @@ class Chatbot:
         loading_thread.join()
 
         try:
+            print(chat_response)
             text_response = chat_response.json()['textResponse']
             self.message_history.append({
                 "role": "assistant",

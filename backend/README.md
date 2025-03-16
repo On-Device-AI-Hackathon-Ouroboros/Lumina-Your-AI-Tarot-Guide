@@ -44,6 +44,7 @@ After installing conda, you can set up and activate a new conda environment with
 
 
 ```
+.\llm-venv\Scripts\Activate.ps1
 conda-env update -f environment.yaml
 conda activate llm
 ```
