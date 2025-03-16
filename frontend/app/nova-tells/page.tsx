@@ -119,7 +119,6 @@ const tarotDeck = [
 export default function NovaTellsPage() {
   const router = useRouter()
   const [isGeneratingYesNo, setIsGeneratingYesNo] = useState(false)
-  const [yesNoResult, setYesNoResult] = useState<{ answer: string; explanation: string } | null>(null)
 
   // Tarot reading states
   const [shuffledDeck, setShuffledDeck] = useState<typeof tarotDeck>([])
@@ -128,6 +127,10 @@ export default function NovaTellsPage() {
   const [tarotReading, setTarotReading] = useState("")
   const [isGeneratingReading, setIsGeneratingReading] = useState(false)
   const [showChat, setShowChat] = useState(false) // Nuevo estado para mostrar el chat
+  const [yesOrNoAnswer, setYesOrNoAnswer] = useState("")
+  const [yesOrNoExplanation, setYesOrNoExplaination] = useState("")
+  const [yesNoResult, setYesNoResult] = useState<{ answer: string; explanation: string } | null>(null)
+
 
   // Animation and flow states
   const [activeTab, setActiveTab] = useState("yes-no")
@@ -197,9 +200,9 @@ export default function NovaTellsPage() {
     setShowChat(false)
   }
 
-  const getYesNoAnswer = () => {
+  const getYesNoAnswer = async () => {
     setIsGeneratingYesNo(true)
-    setYesNoResult(null)
+    setYesOrNoAnswer("")
 
     // Simulate a magical process with a delay
     setTimeout(() => {
@@ -207,6 +210,91 @@ export default function NovaTellsPage() {
       setYesNoResult(yesNoResponses[randomIndex])
       setIsGeneratingYesNo(false)
     }, 2000)
+
+    // const message = `Give me a answer as in either "yes" or "no". No anything else should be included in your answer. Your answer can only stictly, and randomly be yes or no.`
+
+    // const controller = new AbortController()
+    // const timeoutId = setTimeout(() => controller.abort(), 120000)
+
+    // // console.log(message)
+
+    // try {
+    //   const res = await fetch('/api/chat', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ message }),
+    //     signal: controller.signal
+    //   })
+    //   if(!res.ok){
+    //     const rawText = await res.text();
+    //     throw Error("Error received from backend"+rawText)
+    //   }
+    //   // console.log(JSON.stringify(res.json()))
+    //   const data = await res.json();
+    //   setYesOrNoAnswer(data.response)
+    // } catch (error) {
+    //   console.error('Error Generating yes or no result:', error);
+    // }finally {
+    //   // setIsGeneratingReading(false)
+    //   clearTimeout(timeoutId)
+    // }
+
+    // console.log(yesOrNoAnswer)
+  }
+
+
+  const getYesNoExplaination = async () => {
+    // setIsGeneratingYesNo(true)
+    setYesOrNoExplaination("")
+
+    const message = `Suppose you're a professional Tarot interpreter. You aregiven  \
+       ${yesOrNoAnswer} as a major sign today, based on the user's ${userBirthday} and Astrology, now \
+       generate a one-sentence insight/instruction with mystic tone revealing the major sign. Your \
+       response should be strictly only one short sentence and nothing else. Please take these \
+       examples as your reference: \
+       "The stars align in your favor. Trust your instincts."  \
+       "The cosmic energies suggest caution. Perhaps another path awaits."  \
+       "The universe whispers its approval. Move forward with confidence."  \
+       "The celestial bodies urge patience. This is not the right time."`
+
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 120000)
+
+    // console.log(message)
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
+        signal: controller.signal
+      })
+      if(!res.ok){
+        const rawText = await res.text();
+        throw Error("Error received from backend"+rawText)
+      }
+      // console.log(JSON.stringify(res.json()))
+      const data = await res.json();
+      setYesOrNoExplaination(data.response)
+    } catch (error) {
+      console.error('Error Generating yes or no explanation:', error);
+    }finally {
+      // setIsGeneratingYesNo(false)
+      clearTimeout(timeoutId)
+    }
+
+    console.log(yesOrNoExplanation)
+  }
+
+  const getYesNoResult = () => {
+    // getYesNoAnswer()
+    // getYesNoExplaination()
+    // setYesNoResult({answer: yesOrNoAnswer, explanation: yesOrNoExplanation})
+    // setIsGeneratingYesNo(false)
   }
 
   const handleCardSelect = (cardId: number) => {
@@ -246,14 +334,22 @@ export default function NovaTellsPage() {
     // Get the selected cards
     const selectedCards = cardIds.map((id) => shuffledDeck.find((card) => card.id === id)!)
     const selectedCardNames = selectedCards.map((card) => card.name + card.meaning).join(", ")
-    const message = `Suppose you're a professional tarot reader, for user given the following tarot spread ${spreadType}, interpret the meaning of the cards ${selectedCardNames} in the context of the user's life. Consider the symbolism, traditional meanings, and their placement in the spread. Provide a reading that is both empowering and insightful, offering practical advice for the user. Do not ask the user any questions or request additional information. Your response should include: 1. A brief introduction to set the tone. 2. No need for seperate interpretation of each card's meaning in the spread. 3. A summary of the overall reading, highlighting key themes. 4. Actionable guidance, offering the user insight into their next steps. 5. A closing message that feels mystical, leaving the user inspired.`
-
-    // const message = 'tell me a joke'
+    const message = `Suppose you're a professional tarot reader, for user given the following tarot spread ${spreadType}, \
+    interpret the meaning of the cards ${selectedCardNames} in the context of the user's life. Consider the symbolism, \
+    traditional meanings, and their placement in the spread. Provide a reading that is both empowering and insightful, \
+    offering practical advice for the user. Do not ask the user any questions or request additional information. \
+    Your response should include: 
+    1. A brief introduction to set the tone. (one-sentence)
+    2. No need for seperate interpretation of each card's meaning in the spread. 
+    3. A summary of the overall reading, highlighting key themes. (at most 3 sentences)
+    4. Actionable guidance, offering the user insight into their next steps. (at most 5 sentences)\ 
+    5. A closing message that feels straighforward and simple, leaving the user inspired and empowered. \
+    Separate those aspects into 5 paragraphs with titles. Don't include quotes and unquotes. `
 
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 120000)
 
-    console.log(message)
+    // console.log(message)
 
     try {
       const res = await fetch('/api/chat', {
@@ -277,39 +373,6 @@ export default function NovaTellsPage() {
       setIsGeneratingReading(false)
       clearTimeout(timeoutId)
     }
-
-    // Simulate AI generating a reading based on spread type
-    // setTimeout(() => {
-    //   let reading = ""
-
-    //   switch (spreadType) {
-    //     case "general":
-    //       reading = `The ${selectedCards[0].name} represents your past, suggesting ${selectedCards[0].meaning.toLowerCase()}. Your present is illuminated by ${selectedCards[1].name}, which indicates ${selectedCards[1].meaning.toLowerCase()}. Looking to your future, ${selectedCards[2].name} reveals ${selectedCards[2].meaning.toLowerCase()}. This timeline shows a journey of personal evolution, with each phase building upon the last.\`  This timeline shows a journey of personal evolution, with each phase building upon the last.`
-    //       break
-
-    //     case "love":
-    //       reading = `The ${selectedCards[0].name} at the base of your pyramid represents the foundation of your relationship, showing ${selectedCards[0].meaning.toLowerCase()}. The ${selectedCards[1].name} reveals your partner's energy, bringing ${selectedCards[1].meaning.toLowerCase()} to the connection. The ${selectedCards[2].name} shows the dynamics between you, creating ${selectedCards[2].meaning.toLowerCase()}. At the peak, ${selectedCards[3].name} indicates the potential outcome, suggesting ${selectedCards[3].meaning.toLowerCase()} if you follow this path.`
-    //       break
-
-    //     case "career":
-    //       reading = `The ${selectedCards[0].name} forms the roots of your career tree, indicating ${selectedCards[0].meaning.toLowerCase()} as your foundation. The left branch, ${selectedCards[1].name}, suggests ${selectedCards[1].meaning.toLowerCase()} as one path of growth. The right branch, ${selectedCards[2].name}, offers ${selectedCards[2].meaning.toLowerCase()} as an alternative direction. The ${selectedCards[3].name} and ${selectedCards[4].name} represent the fruits of these paths, promising ${selectedCards[3].meaning.toLowerCase()} and ${selectedCards[4].meaning.toLowerCase()} respectively. Your wealth tree is flourishing with potential.`
-    //       break
-
-    //     case "choices":
-    //       reading = `The ${selectedCards[0].name} at the center represents your current position, showing ${selectedCards[0].meaning.toLowerCase()}. The left path begins with ${selectedCards[1].name}, suggesting ${selectedCards[1].meaning.toLowerCase()}, and leads to ${selectedCards[2].name}, which promises ${selectedCards[2].meaning.toLowerCase()}. The right path starts with ${selectedCards[3].name}, indicating ${selectedCards[3].meaning.toLowerCase()}, and culminates in ${selectedCards[4].name}, offering ${selectedCards[4].meaning.toLowerCase()}. Both paths have merit, but one resonates more with your true desires.`
-    //       break
-
-    //     case "spiritual":
-    //       reading = `Your mind is represented by ${selectedCards[0].name}, revealing ${selectedCards[0].meaning.toLowerCase()} in your thoughts and beliefs. Your body's energy is shown through ${selectedCards[1].name}, manifesting as ${selectedCards[1].meaning.toLowerCase()} in your physical experience. Your spirit is illuminated by ${selectedCards[2].name}, bringing ${selectedCards[2].meaning.toLowerCase()} to your inner self. The integration card, ${selectedCards[3].name}, suggests that ${selectedCards[3].meaning.toLowerCase()} will help you harmonize these aspects of your being.`
-    //       break
-
-    //     default:
-    //       reading = `The cards reveal a powerful message: ${selectedCards.map((card) => `${card.name} (${card.meaning.toLowerCase()})`).join(", ")}. Together, they suggest that you are at a significant crossroads. Trust your intuition and embrace the changes coming your way. The cosmic energies are supporting your transformation.`
-    //   }
-
-    //   setTarotReading(reading)
-    //   setIsGeneratingReading(false)
-    // }, 3000)
   }
 
   const resetTarotReading = () => {
@@ -414,7 +477,7 @@ export default function NovaTellsPage() {
                     <p className="mb-8 text-center font-fell text-xl">{yesNoResult.explanation}</p>
 
                     <div className="flex gap-4">
-                      <MagicalButton onClick={getYesNoAnswer}>Ask Again</MagicalButton>
+                      <MagicalButton onClick={getYesNoResult}>Ask Again</MagicalButton>
 
                       <MagicalButton variant="outline" onClick={() => setYesNoResult(null)}>
                         New Question
@@ -429,7 +492,7 @@ export default function NovaTellsPage() {
               value="tarot"
               className="p-6 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 shadow-lg"
             >
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="wait">getYesNoResult
                 {/* Category Selection */}
                 {showCategorySelection && <TarotQuestionCategory onSelectCategory={handleCategorySelect} />}
 
